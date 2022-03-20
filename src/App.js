@@ -4,73 +4,73 @@ import "./App.css";
 const questions = [
   {
     id: 1,
-    question: "Quem descobriu a américa ?",
+    question: "Who discovered America ?",
     options: [
-      { letter: "A", option: "Cristóvão Colombo" },
+      { letter: "A", option: "Christopher Columbus" },
       { letter: "B", option: "Chris Evans" },
-      { letter: "C", option: "O Ronaldinho Gaúcho" },
-      { letter: "D", option: "El Guapo" },
-      { letter: "E", option: "O mutante" },
+      { letter: "C", option: "Ronaldinho Gaúcho" },
+      { letter: "D", option: "Americo Vespucci" },
+      { letter: "E", option: "Wolverine" },
     ],
     correct: "A",
   },
   {
     id: 2,
-    question: "Qual é o nome do irmão de Jarede ?",
+    question: "Who is the best fit for this position ?",
     options: [
       { letter: "A", option: "Moroni Moriancumer" },
       { letter: "B", option: "Mosias" },
-      { letter: "C", option: "Kaká" },
-      { letter: "D", option: "Mórmon" },
-      { letter: "E", option: "Mahonri Moriâncumer" },
+      { letter: "C", option: "Keysi Jones" },
+      { letter: "D", option: "Carlos Rodrigues" },
+      { letter: "E", option: "Lucas Fernandes" },
     ],
-    correct: "E",
+    correct: "C",
   },
   {
     id: 3,
-    question: "Quem foi o Maicão ?",
+    question: "Who was the first software developer?",
     options: [
-      { letter: "A", option: "Um personagem de todo mundo odeia o Chris" },
-      { letter: "B", option: "Um dançarino" },
-      { letter: "C", option: "Um Jogador de futebol" },
-      { letter: "D", option: "Um guitarrista" },
-      { letter: "E", option: "Un homem famoso" },
+      { letter: "A", option: "Christopher Nolan" },
+      { letter: "B", option: "Erick Wright" },
+      { letter: "C", option: "Ada Lovelace" },
+      { letter: "D", option: "Bruce Coder" },
+      { letter: "E", option: "Brendan Eich" },
     ],
-    correct: "A",
+    correct: "C",
   },
   {
     id: 4,
-    question: "Quem foi Pablo Escobar ?",
+    question: "Who was Beckham ? ?",
     options: [
-      { letter: "A", option: "Um cantor" },
-      { letter: "B", option: "Um dançarino" },
-      { letter: "C", option: "Um Jogador de futebol" },
-      { letter: "D", option: "Um domador de cães" },
-      { letter: "E", option: "Um Narcotraficante" },
+      { letter: "A", option: "A singer" },
+      { letter: "B", option: "A dancer" },
+      { letter: "C", option: "A football player" },
+      { letter: "D", option: "A reporter" },
+      { letter: "E", option: "A programmer" },
     ],
-    correct: "E",
+    correct: "C",
   },
   {
     id: 5,
-    question: "Quem ganhou a copa de 2014 ?",
+    question: "Who won 2014 world cup ?",
     options: [
-      { letter: "A", option: "Brasil" },
+      { letter: "A", option: "Brazil" },
       { letter: "B", option: "Russia" },
       { letter: "C", option: "Peru" },
-      { letter: "D", option: "Alemanha" },
-      { letter: "E", option: "Holanda" },
+      { letter: "D", option: "Germany" },
+      { letter: "E", option: "Netherlands" },
     ],
     correct: "D",
   },
   {
     id: 6,
-    question: "Quem foi Joseph Smith ?",
+    question: "Who was Joseph Smith ?",
     options: [
-      { letter: "A", option: "Um cantor" },
-      { letter: "B", option: "Um profeta" },
-      { letter: "C", option: "Um Jogador de futebol" },
-      { letter: "D", option: "Um jornalista" },
-      { letter: "E", option: "Um Pianista" },
+      { letter: "A", option: "A singer" },
+      { letter: "B", option: "A profet" },
+      { letter: "C", option: "A designer" },
+      { letter: "D", option: "A soccer player" },
+      { letter: "E", option: "An athlete" },
     ],
     correct: "B",
   },
@@ -79,7 +79,8 @@ const questions = [
 let answered = [];
 
 function App() {
-  const [availableQuestions, setAvailableQuestions] = useState(questions);
+  const [availableQuestions, setAvailableQuestions] = useState([]);
+  const [isFirstRender, setIsFirstRender] = useState(true)
 
   const jumper = (previousQuestion) => {
     answered.push(previousQuestion);
@@ -95,7 +96,10 @@ function App() {
   };
 
   return (
-    <div className="h-screen text-center bg-white flex flex-col justify-center my-2">
+    isFirstRender ?
+    <PlayButton setIsFirstRender={setIsFirstRender} playAgain={playAgain}/>
+    :
+    <div className="h-screen text-center bg-white flex flex-col justify-center mx-4">
       <Question
         actualQuestion={availableQuestions[0]}
         jumper={jumper}
@@ -106,12 +110,15 @@ function App() {
   );
 }
 
-function PlayButton() {
+function PlayButton({playAgain, setIsFirstRender}) {
   return (
     <div className="h-screen bg-white">
-      <div className="justify-center items-center h-screen text-center flex">
-        <button className="text-5xl text-white text-center bg-green-500 px-4 py-2 rounded-md">
-          Jogar
+      <div className="justify-center items-center h-screen flex">
+        <button onClick={() => {
+          setIsFirstRender(false)
+          playAgain()
+          }} className="text-4xl text-white bg-green-500 px-8 py-2 rounded-md">
+          Start playing
         </button>
       </div>
     </div>
@@ -128,10 +135,12 @@ function QuestionButton({
   correct,
 }) {
   const [bgColor, setBgColor] = useState("bg-blue-500");
+  const [disabled, setDisabled] = useState(false);
   return (
-    <div
+    <button
       onClick={() => {
         let color = "bg-red-500";
+        setDisabled(true)
         if (correct === letter) {
           color = "bg-green-500";
           setScore(score + 10);
@@ -140,13 +149,15 @@ function QuestionButton({
         setTimeout(() => {
           jumper(previousQuestion);
           setBgColor("bg-blue-500");
+          setDisabled(false)
         }, 1000);
       }}
-      className={`flex rounded-3xl my-2 mx-4 px-4 py-4 text-center ${bgColor} text-white`}
+      className={`flex rounded-3xl my-2 mx-4 px-4 py-3 text-center ${bgColor} text-white`}
+      disabled={disabled}
     >
       <label className="text-white">{letter})</label>
       <label className="mx-2 text-xl">{option}</label>
-    </div>
+    </button>
   );
 }
 
@@ -175,12 +186,12 @@ function Question({ actualQuestion, jumper, quantity, playAgain }) {
         >
           <p
             className={`${
-              actualQuestion ? "text-left" : "text-center"
-            } ml-8 text-md text-blue-600`}
+              actualQuestion ? "text-left text-xl" : "text-center text-2xl"
+            } ml-8 text-blue-600`}
           >
-            Pontuação: {score}
+            Score: {score}
           </p>
-          <p className="text-right mr-8 text-md text-blue-600">
+          <p className="text-right mr-8 text-xl text-blue-600">
             {actualQuestion ? (
               <p>{`${actualQuestion.id}/${quantity}`}</p>
             ) : (
@@ -188,8 +199,8 @@ function Question({ actualQuestion, jumper, quantity, playAgain }) {
             )}
           </p>
         </div>
-        <p className="mx-4 text-4xl">
-          {actualQuestion ? actualQuestion.question : "Fim do jogo"}
+        <p className={`m-4 text-4xl ${actualQuestion === undefined ? 'text-red-500' : ''}`}>
+          {actualQuestion ? actualQuestion.question : "Game Over"}
         </p>
       </div>
       {actualQuestion ? (
@@ -211,13 +222,13 @@ function Question({ actualQuestion, jumper, quantity, playAgain }) {
       ) : (
         <div>
           <button
-            className="bg-blue-500 text-white p-4 rounded-3xl"
+            className="bg-blue-500 text-white px-2 py-1 rounded-md"
             onClick={() => {
               setScore(0);
               playAgain();
             }}
           >
-            Tentar novamente
+            Play again
           </button>
         </div>
       )}
