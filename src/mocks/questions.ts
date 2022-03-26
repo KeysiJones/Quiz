@@ -71,6 +71,18 @@
       ],
       correct: "B",
     },
+    {
+      id: 7,
+      question: "What is the color of Elder Peterson's pen ?",
+      options: [
+        { letter: "A", option: "Blue" },
+        { letter: "B", option: "Green" },
+        { letter: "C", option: "Gold" },
+        { letter: "D", option: "Yellow" },
+        { letter: "E", option: "Silver" },
+      ],
+      correct: "C",
+    },
   ];
 
   export {questions}

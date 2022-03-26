@@ -1,8 +1,10 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
+test("Renders play button at first render", () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const startButton = screen.getByRole("button");
+
+  expect(startButton).toBeInTheDocument();
+  expect(startButton).toHaveTextContent("Start playing");
 });
