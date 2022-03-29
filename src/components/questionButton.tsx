@@ -61,7 +61,7 @@ function QuestionButton({
           }, 1000);
         }
       }}
-      className={`flex rounded-3xl my-2 mx-4 px-4 py-3 text-center ${bgColor} text-white ${borderColor}`}
+      className={`flex rounded-3xl my-2 mx-4 px-4 py-3 text-center ${bgColor} text-white ${borderColor} outline-none`}
       disabled={disabled}
     >
       <label className="text-white">{letter})</label>
