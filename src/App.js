@@ -36,7 +36,7 @@ function App() {
   return isFirstRender ? (
     <PlayButton setIsFirstRender={setIsFirstRender} playAgain={playAgain} />
   ) : (
-    <div className="mt-3 text-center bg-white flex flex-col justify-center max-w-screen-lg mx-auto">
+    <div className="mt-3 h-96vh text-center bg-white flex flex-col justify-center max-w-screen-lg mx-auto">
       <Question
         actualQuestion={availableQuestions[0]}
         jumper={jumper}
