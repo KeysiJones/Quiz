@@ -23,7 +23,7 @@ function Question({
   const [selectedOption, setSelectedOption] = useState(null);
 
   return (
-    <main className="flex flex-col h-96vh justify-evenly">
+    <main className="flex flex-col h-96vh justify-between sm:justify-evenly mb-12">
       <div className="mb-8">
         <div
           className={`flex ${

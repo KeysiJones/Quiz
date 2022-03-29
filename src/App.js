@@ -43,6 +43,21 @@ function App() {
         playAgain={playAgain}
         quantity={questions.length}
       />
+      <footer style={{display: "flex", placeContent: "center"}}>
+        <a
+          target="_blank"
+          style={{fontSize: "60%", textAlign: "center"}}
+          href="https://icons8.com/icon/mgIHjVLgKRMv/quiz" rel="noreferrer"
+        >
+          Quiz icon by</a
+        >
+        <a
+          target="_blank"
+          style={{fontSize: "60%", textAlign: "center"}}
+          href="https://icons8.com" rel="noreferrer"
+          >Icons8</a
+        >
+      </footer>
     </div>
   );
 }

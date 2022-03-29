@@ -5,7 +5,7 @@ type playButtonProps = {
 
 function PlayButton({ playAgain, setIsFirstRender }: playButtonProps & {}) {
   return (
-    <div className="h-screen bg-white">
+    <div className="h-96vh bg-white">
       <div className="justify-center items-center h-screen flex">
         <button
           onClick={() => {
