@@ -23,7 +23,7 @@ function Question({
   const [selectedOption, setSelectedOption] = useState(null);
 
   return (
-    <>
+    <main className="flex flex-col h-96vh justify-between sm:justify-evenly mb-12">
       <div className="mb-8">
         <div
           className={`flex ${
@@ -54,6 +54,7 @@ function Question({
           {actualQuestion ? actualQuestion.question : "Game Over"}
         </p>
       </div>
+      <div className="flex flex-col">
       {actualQuestion ? (
         actualQuestion.options.map((option, index) => {
           return (
@@ -84,7 +85,8 @@ function Question({
           </button>
         </div>
       )}
-    </>
+      </div>
+    </main>
   );
 }
 

@@ -28,16 +28,17 @@ function QuestionButton({
   const [bgColor, setBgColor] = useState("bg-blue-500");
   const [borderColor, setBorderColor] = useState("");
   const [disabled, setDisabled] = useState(false);
+  let updatedScore = score;
   useEffect(() => {
     return () => {
       _timeOutReference = null;
-      setSelectedOption(null)
+      setSelectedOption(null);
     };
   }, []);
   useEffect(() => {
-    if(_timeOutReference && selectedOption !== correct && correct === letter){
-      setBorderColor("border-green-500 border-4")
-      setBgColor("bg-green-600")
+    if (_timeOutReference && selectedOption !== correct && correct === letter) {
+      setBorderColor("border-green-500 border-4");
+      setBgColor("bg-green-600");
     }
   }, [selectedOption, correct, letter]);
   return (
@@ -50,10 +51,11 @@ function QuestionButton({
           if (correct === letter) {
             color = "bg-green-500";
             setScore(score + 10);
+            updatedScore = score + 10;
           }
           setBgColor(color);
           _timeOutReference = setTimeout(() => {
-            jumper(previousQuestion);
+            jumper(previousQuestion, updatedScore);
             setBgColor("bg-blue-500");
             setDisabled(false);
           }, 1000);
