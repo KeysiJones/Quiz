@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import Highscore from "./highscore";
 import { QuestionButton } from "./questionButton";
 
 type questionProps = {
@@ -19,6 +20,7 @@ function Question({
   playAgain,
 }: questionProps) {
   const [score, setScore] = useState(0);
+  const [selectedOption, setSelectedOption] = useState(null);
 
   return (
     <>
@@ -35,9 +37,10 @@ function Question({
           >
             Score: {score}
           </p>
+          {actualQuestion && <Highscore score={score} />}
           <p className="text-right mr-8 text-xl text-blue-600">
             {actualQuestion ? (
-              <p>{`${actualQuestion.id}/${quantity}`}</p>
+              <React.Fragment>{`${actualQuestion.id}/${quantity}`}</React.Fragment>
             ) : (
               false
             )}
@@ -52,15 +55,17 @@ function Question({
         </p>
       </div>
       {actualQuestion ? (
-        actualQuestion.options.map((option) => {
+        actualQuestion.options.map((option, index) => {
           return (
             <QuestionButton
-              key={option.id}
+              key={actualQuestion.id + "-" + index}
               previousQuestion={actualQuestion.id}
               jumper={jumper}
               letter={option.letter}
               option={option.option}
               correct={actualQuestion.correct}
+              selectedOption={selectedOption}
+              setSelectedOption={setSelectedOption}
               score={score}
               setScore={setScore}
             />
